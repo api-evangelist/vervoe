@@ -1,0 +1,63 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Vervoe
+providerId: vervoe
+created: '2026-07-10'
+modified: '2026-07-10'
+reconciled: false
+tags:
+- Hiring
+- Skills Assessment
+- Rate Limiting
+- Quotas
+description: >-
+  Vervoe does not publish numeric rate limits for its partner/integration API.
+  The public documentation describes REST over HTTPS, standard HTTP status
+  codes, and a signed report webhook, but does not state per-minute request
+  caps, per-account quotas, or candidate-volume ceilings for API use. On the
+  Report Notification Webhook, the documented behavior is that the consumer
+  must return HTTP 200 to acknowledge receipt; if the response is not 200,
+  Vervoe retries delivery. Effective usage ceilings are governed by the
+  employer's plan (candidate volume) rather than a published API rate limit.
+notes: >-
+  No fixed numeric per-endpoint or per-account API limits are documented as of
+  the review date. Confirm any account-specific limits with Vervoe when API
+  access is provisioned (sales+api@vervoe.com). Error handling should follow
+  the documented HTTP status codes.
+sources:
+- https://vervoe.stoplight.io/docs/api-docs/ZG9jOjQ4ODIx-introduction
+- https://vervoe.stoplight.io/docs/api-docs/ZG9jOjExMzY5ODc-report-notification-web-hook
+- https://vervoe.stoplight.io/docs/api-docs/docs/04-Errors.md
+responseCodes:
+  success: 200
+  badRequest: 400
+  forbidden: 403
+  notFound: 404
+  serverError: 500
+limits:
+- name: API Requests
+  scope: account
+  metric: requests
+  limit: not published
+  notes: No fixed numeric request-rate limit is documented for the Vervoe partner API.
+- name: Candidate Volume
+  scope: account
+  metric: candidates
+  limit: per plan
+  notes: Effective usage is bounded by the employer's subscription/enterprise plan candidate volume, not a published API rate limit.
+- name: Webhook Delivery
+  scope: endpoint
+  metric: deliveries
+  limit: retry until acknowledged
+  notes: The consumer endpoint must return HTTP 200; if not, Vervoe retries sending the report.
+policies:
+- name: Webhook Acknowledgement
+  description: Consumers of the Report Notification Webhook must respond with HTTP 200; a non-200 response triggers Vervoe to retry delivery.
+- name: Webhook Signature Verification
+  description: Each webhook delivery includes a Vervoe-Signature header (t timestamp and hash) computed as an HMAC SHA-256 over the timestamp concatenated with the raw request body, keyed by the endpoint signing secret from the Vervoe dashboard.
+- name: Backoff Strategy
+  description: API clients should implement exponential backoff with jitter and honor standard HTTP error semantics (400/403/404/500) returned by the API.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

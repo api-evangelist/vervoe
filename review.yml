@@ -1,0 +1,109 @@
+aid: vervoe
+name: Vervoe
+review:
+  question: Does Vervoe expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-10'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Vervoe's own public API surface is
+    request/response REST over HTTPS. Vervoe does document one server-push
+    mechanism - the Report Notification Webhook - but that is a
+    server-to-endpoint HTTP callback (Vervoe POSTs an Assessment Report to a
+    URL the employer configures), not a WebSocket or SSE stream. Because the
+    public documentation does not publish concrete channel/message schemas or
+    exact endpoint paths for the webhook events (only a list of trigger events
+    and an example payload), and because the webhook is HTTP callback rather
+    than a persistent bidirectional or streaming transport, no AsyncAPI spec
+    was created at this time.
+findings:
+  summary: |
+    Vervoe does not publish a documented public WebSocket API. Vervoe is an
+    AI-powered skills assessment and skills-based hiring platform. It exposes a
+    partner/integration API documented on Stoplight
+    (https://vervoe.stoplight.io/docs/api-docs). The Introduction states that
+    "All Vervoe APIs are based on REST architecture and are accessed via HTTPS
+    at specific URLs." The documented capabilities are: list assessments,
+    invite candidates to complete an assessment (returning a candidate-specific
+    URL), and retrieve a candidate's assessment report/scores. A separate
+    Report Notification Webhook lets an employer register a URL that Vervoe
+    POSTs Assessment Reports to, signed with an HMAC SHA-256 signature. No
+    realtime, bidirectional, or streaming WebSocket (ws:// or wss://) endpoint
+    is documented anywhere in Vervoe's API docs as of the review date.
+  accessModel: |
+    The API is partner/gated. The public documentation describes the API and
+    example scenarios but does not publish concrete REST endpoint paths, an
+    OpenAPI definition, or an interactive reference. Access is provisioned by
+    Vervoe: the docs direct partners to contact sales+api@vervoe.com to set up
+    access, and the product contact is Nicole Bowes (Head of Product). Because
+    exact endpoint paths are not published, the provider entry models the
+    logical APIs (Assessments, Candidates, Reports, Webhook) with
+    endpointsModeled set to true rather than fabricating endpoint URLs.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.vervoe.com
+      documented: true
+      note: Introduction states all Vervoe APIs are REST over HTTPS. Concrete endpoint paths are not published publicly.
+    - protocol: Webhook
+      scheme: https
+      documented: true
+      note: Report Notification Webhook - Vervoe POSTs a signed Assessment Report to an employer-configured URL. Server-to-endpoint HTTP callback, not WebSocket.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented anywhere in Vervoe's API docs as of the review date.
+  operationsModeled:
+    - GET list of assessments (Assessments API) - documented Example Scenario 1
+    - POST invite candidate to complete assessment (Candidates API) - documented Example Scenario 2
+    - GET candidate assessment report (Reports API) - documented Example Scenario 3
+    - Report Notification Webhook events (14 documented events, HMAC SHA-256 signed)
+  webhookEvents:
+    - Candidate starts an assessment
+    - Candidate completes an assessment
+    - The first time AI grades a candidate's response
+    - AI score is updated
+    - The first time candidate gets a manual team score
+    - Manual team score is updated
+    - Candidate is hired
+    - Candidate is unhired
+    - Candidate is rejected
+    - Candidate is un-rejected
+    - Candidate expired
+    - Screening in progress
+    - Candidate failed screening
+    - Candidate passed screening
+  errorCodes:
+    - 200 OK - request success
+    - 400 Bad Request - malformed request (missing or improperly named parameters)
+    - 403 Forbidden - API user lacks required permissions
+    - 404 Not Found - requested resource does not exist
+    - 500 Server Error - error on Vervoe API servers
+sources:
+  - url: https://vervoe.stoplight.io/docs/api-docs/ZG9jOjQ4ODIx-introduction
+    type: Documentation
+    note: Introduction - "All Vervoe APIs are based on REST architecture and are accessed via HTTPS". No WebSocket mentioned.
+  - url: https://vervoe.stoplight.io/docs/api-docs/ZG9jOjExMzY5ODk-example-scenarios
+    type: APIReference
+    note: Example Scenarios - list assessments, invite candidate, get candidate assessment report. Directs partners to contact sales+api@vervoe.com for access.
+  - url: https://vervoe.stoplight.io/docs/api-docs/ZG9jOjExMzY5ODc-report-notification-web-hook
+    type: Documentation
+    note: Report Notification Webhook - 14 events, example payload, HMAC SHA-256 Vervoe-Signature verification. HTTP callback, not WebSocket.
+  - url: https://vervoe.com/api/
+    type: Documentation
+    note: API landing page (redirects to the Stoplight docs); describes ATS/custom integrations via API and webhooks.
+  - url: https://vervoe.com/pricing/
+    type: Pricing
+    note: Enterprise plan lists "custom integrations" and "Connect via API"; pricing is contact-sales.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists. Vervoe's own public API is
+    request/response REST plus a signed HTTP webhook callback. No AsyncAPI
+    document was created because there is no WebSocket or SSE stream on
+    Vervoe's API, and the webhook's channel/message schemas are not published
+    in enough detail to model without fabrication. The provider entry marks
+    each API with endpointsModeled to reflect that concrete endpoint paths are
+    not published in Vervoe's public documentation.

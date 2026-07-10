@@ -1,0 +1,85 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Vervoe
+providerId: vervoe
+created: '2026-07-10'
+modified: '2026-07-10'
+reconciled: false
+tags:
+- Hiring
+- Skills Assessment
+- HR Tech
+- Plans
+description: >-
+  Vervoe does not publish public, self-service pricing. The product is sold on
+  a subscription basis with published plans gated behind a demo, and API access
+  is positioned as a partner/enterprise capability - the Enterprise plan
+  explicitly calls out custom integrations and "Connect via API". Vervoe's
+  pricing has historically been oriented around candidate volume and team
+  seats, but concrete per-candidate or per-seat rates are not published, so no
+  numeric rates are asserted here. API credentials are provisioned by Vervoe
+  after contacting sales.
+notes: >-
+  Verify current plan names and rates on the Vervoe pricing page during
+  reconciliation. API access setup is via sales+api@vervoe.com per the API
+  documentation. Treat all plan details below as modeled from public
+  positioning, not reconciled pricing.
+sources:
+- https://vervoe.com/pricing/
+- https://vervoe.com/api/
+- https://vervoe.stoplight.io/docs/api-docs/ZG9jOjExMzY5ODk-example-scenarios
+plans:
+- id: vervoe-subscription
+  name: Vervoe Subscription (Demo-Gated)
+  type: subscription
+  description: >-
+    Vervoe's standard skills-based hiring subscription. Plans and pricing are
+    presented after requesting a demo rather than published publicly.
+    Historically oriented around candidate volume and team seats.
+  entries:
+  - label: Subscription
+    name: subscription
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: request a demo (not publicly listed)
+    userMultiplied: false
+  elements:
+  - name: Skills Assessments
+  - name: AI Grading
+  - name: Public Assessment Library
+  - name: Candidate Management
+- id: vervoe-enterprise
+  name: Enterprise
+  type: enterprise
+  description: >-
+    For large teams and high-volume, skills-first hiring. Adds customizable
+    assessments, advanced AI grading, enterprise-grade security, priority
+    support, and - relevant here - custom integrations and API access to handle
+    hundreds of thousands of candidates in a white-labelled assessment
+    platform.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Custom Integrations
+  - name: API Access
+  - name: White-Labelled Assessment Platform
+  - name: Advanced AI Grading
+  - name: Enterprise Security
+  - name: Priority Support
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
