@@ -116,6 +116,8 @@ apis:
     consumers must return HTTP 200 or Vervoe retries. This is a server-to-endpoint
     HTTP callback, not a WebSocket.
 common:
+- type: DomainSecurity
+  url: security/vervoe-domain-security.yml
 - type: LinkedIn
   url: https://www.linkedin.com/company/vervoe
 - type: Website
