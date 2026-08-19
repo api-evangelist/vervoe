@@ -38,7 +38,7 @@ tags:
 - ATS Integration
 created: '2026-07-10'
 modified: '2026-07-10'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: vervoe:vervoe-assessments-api
   name: Vervoe Assessments API
