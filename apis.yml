@@ -15,6 +15,17 @@ description: Vervoe is an AI-powered skills assessment and skills-based hiring
   partners contact sales to set up credentials. Detailed REST endpoint paths are
   not published in the public documentation, so the logical APIs below are modeled
   from Vervoe's documented Example Scenarios and webhook reference.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: approval
