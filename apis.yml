@@ -44,6 +44,14 @@ tags:
 - Recruitment
 - Skills Assessment
 - Talent
+- Human Resources
+- AI Grading
+- ATS Integration
+tags_raw:
+- Hiring
+- Recruitment
+- Skills Assessment
+- Talent
 - HR Tech
 - AI Grading
 - ATS Integration
@@ -54,6 +62,10 @@ apis:
 - aid: vervoe:vervoe-assessments-api
   name: Vervoe Assessments API
   tags:
+  - Assessment
+  - Content
+  - Skills
+  tags_raw:
   - Assessments
   - Content
   - Skills
