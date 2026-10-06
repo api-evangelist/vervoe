@@ -56,7 +56,7 @@ tags_raw:
 - AI Grading
 - ATS Integration
 created: '2026-07-10'
-modified: '2026-07-10'
+modified: '2026-10-06'
 specificationVersion: '0.23'
 apis:
 - aid: vervoe:vervoe-assessments-api
@@ -155,6 +155,8 @@ apis:
     consumers must return HTTP 200 or Vervoe retries. This is a server-to-endpoint
     HTTP callback, not a WebSocket.
 common:
+- url: https://vervoe.com/feed.xml
+  type: BlogRSS
 - type: DomainSecurity
   url: security/vervoe-domain-security.yml
 - type: LinkedIn
