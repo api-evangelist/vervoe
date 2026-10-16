@@ -1,0 +1,21 @@
+{
+  "repo": "vervoe",
+  "feeds": [
+    {
+      "source": "https://vervoe.com/blog/",
+      "feed_url": "https://vervoe.com/blog/",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    },
+    {
+      "source": "https://vervoe.com/feed.xml",
+      "feed_url": "https://vervoe.com/feed.xml",
+      "title": "",
+      "saved": 1,
+      "method": "feed"
+    }
+  ],
+  "post_count": 1,
+  "fetched": "2026-10-10T13:15:00Z"
+}
